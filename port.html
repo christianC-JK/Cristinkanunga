@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah Chen - Creative Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        .font-primary { font-family: 'Poppins', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating-card {
+            transform: translateY(0px);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .slide-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .animate-in {
+            opacity: 1;
+            transform: translate(0);
+        }
+        
+        .custom-shape {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        
+        .dot-pattern {
+            background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .timeline-line {
+            position: relative;
+        }
+        
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            transform: translateX(-50%);
+        }
+        selection > option{
+            background-color: #667eea;
+
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-line::before {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="font-primary bg-gray-50 overflow-x-hidden">
+    <!-- Sidebar Navigation -->
+    <nav class="fixed left-0 top-0 h-full w-20 bg-white shadow-lg z-50 flex flex-col items-center py-8">
+        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg mb-8">
+            SC
+        </div>
+        <div class="flex flex-col space-y-6">
+            <a href="#home" class="nav-link w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition-all duration-300">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                </svg>
+            </a>
+            <a href="#about" class="nav-link w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition-all duration-300">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                </svg>
+            </a>
+            <a href="#work" class="nav-link w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition-all duration-300">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h2zm4-3a1 1 0 00-1 1v1h2V4a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+            </a>
+            <a href="#experience" class="nav-link w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition-all duration-300">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                </svg>
+            </a>
+            <a href="#contact" class="nav-link w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition-all duration-300">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="ml-20">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dot-pattern flex items-center">
+            <div class="max-w-6xl mx-auto px-8 py-20">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="slide-in-left">
+                        <div class="inline-block px-4 py-2 bg-purple-100 text-purple-600 rounded-full text-sm font-medium mb-6">
+                            👋 Hello, I'm christian kanunga
+                        </div>
+                        <h1 class="font-display text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+                            Creative
+                            <span class="text-gradient block">Designer</span>
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                            I craft beautiful digital experiences that blend creativity with functionality. Specializing in UI/UX design and brand identity.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="scrollToSection('work')" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                                View My Work
+                            </button>
+                            <button onclick="scrollToSection('contact')" class="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-full font-semibold hover:border-purple-600 hover:text-purple-600 transition-all duration-300">
+                                Let's Talk
+                            </button>
+                        </div>
+                    </div>
+                    <div class="slide-in-right">
+                        <div class="relative">
+                            <div class="w-80 h-80 mx-auto bg-gradient-to-br from-purple-400 via-pink-400 to-blue-400 rounded-3xl transform rotate-6 shadow-2xl"></div>
+                            <div class="absolute inset-0 w-80 h-80 mx-auto bg-white rounded-3xl shadow-xl flex items-center justify-center text-8xl transform -rotate-3">
+                                🎨
+                            </div>
+                            <div class="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center text-2xl shadow-lg">
+                                ✨
+                            </div>
+                            <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-green-400 rounded-full flex items-center justify-center text-xl shadow-lg">
+                                💡
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-5xl font-bold text-gray-900 mb-4 slide-in-up">About Me</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto slide-in-up"></div>
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-12">
+                    <div class="lg:col-span-2 slide-in-left">
+                        <div class="prose prose-lg max-w-none">
+                            <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                                I'm a passionate creative designer with over 1.5 years of experience in crafting digital experiences that matter. My journey began with a love for art and evolved into a career focused on solving complex design challenges.
+                            </p>
+                            <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                                I believe great design is invisible – it should feel natural and effortless while solving real problems for real people. When I'm not designing, you'll find me exploring new coffee shops, sketching in my notebook, or hiking mountain trails.
+                            </p>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-purple-600 mb-2">30+</div>
+                                <div class="text-gray-600">Projects Completed</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-purple-600 mb-2">1.5+</div>
+                                <div class="text-gray-600">Years Experience</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-purple-600 mb-2">25+</div>
+                                <div class="text-gray-600">Happy Clients</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slide-in-right">
+                        <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8">
+                            <h3 class="font-display text-2xl font-semibold text-gray-900 mb-6">Design Philosophy</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">User-Centered</h4>
+                                        <p class="text-gray-600 text-sm">Every design decision starts with the user's needs and goals.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Purposeful</h4>
+                                        <p class="text-gray-600 text-sm">Beautiful design that serves a clear purpose and function.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Accessible</h4>
+                                        <p class="text-gray-600 text-sm">Inclusive design that works for everyone, everywhere.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-5xl font-bold text-gray-900 mb-4 slide-in-up">Featured Work</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto slide-in-up"></div>
+                    <p class="text-gray-600 mt-6 slide-in-up">A selection of projects that showcase my design process and thinking</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Project 1 -->
+                    <div class="floating-card bg-white rounded-3xl overflow-hidden shadow-lg slide-in-left">
+                        <div class="h-64 bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-6xl text-white">
+                            📱
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-sm font-medium">Mobile App</span>
+                                <span class="text-gray-400">2024</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Wellness Tracker App</h3>
+                            <p class="text-gray-600 mb-6">A comprehensive wellness app that helps users track their mental and physical health with beautiful, intuitive interfaces.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">UI/UX Design</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Prototyping</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">User Research</span>
+                            </div>
+                            <button class="text-purple-600 font-semibold hover:text-purple-800 transition-colors flex items-center">
+                                View Case Study 
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="floating-card bg-white rounded-3xl overflow-hidden shadow-lg slide-in-right">
+                        <div class="h-64 bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center text-6xl text-white">
+                            🌐
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">Web Design</span>
+                                <span class="text-gray-400">2025</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">SaaS Dashboard</h3>
+                            <p class="text-gray-600 mb-6">A clean, data-driven dashboard for a B2B SaaS platform that simplifies complex analytics into actionable insights.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Dashboard Design</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Data Visualization</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">UX Strategy</span>
+                            </div>
+                            <button class="text-purple-600 font-semibold hover:text-purple-800 transition-colors flex items-center">
+                                View Case Study 
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="floating-card bg-white rounded-3xl overflow-hidden shadow-lg slide-in-left">
+                        <div class="h-64 bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center text-6xl text-white">
+                            🎯
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">Brand Identity</span>
+                                <span class="text-gray-400">2024</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">EcoTech Startup</h3>
+                            <p class="text-gray-600 mb-6">Complete brand identity and website design for a sustainable technology startup focused on renewable energy solutions.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Branding</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Logo Design</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Web Design</span>
+                            </div>
+                            <button class="text-purple-600 font-semibold hover:text-purple-800 transition-colors flex items-center">
+                                View Case Study 
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="floating-card bg-white rounded-3xl overflow-hidden shadow-lg slide-in-right">
+                        <div class="h-64 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-6xl text-white">
+                            🛍️
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm font-medium">E-commerce</span>
+                                <span class="text-gray-400">2024</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Fashion Marketplace</h3>
+                            <p class="text-gray-600 mb-6">A modern e-commerce platform for sustainable fashion brands with focus on user experience and conversion optimization.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">E-commerce UX</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Conversion Optimization</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Mobile Design</span>
+                            </div>
+                            <button class="text-purple-600 font-semibold hover:text-purple-800 transition-colors flex items-center">
+                                View Case Study 
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-5xl font-bold text-gray-900 mb-4 slide-in-up">Experience</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto slide-in-up"></div>
+                </div>
+
+                <div class="timeline-line relative">
+                    <div class="space-y-12">
+                        <!-- Experience 1 -->
+                        <div class="flex flex-col md:flex-row items-center slide-in-left">
+                            <div class="md:w-1/2 md:pr-8 mb-4 md:mb-0">
+                                <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-medium">2024 - Present</span>
+                                        <div class="w-4 h-4 bg-purple-600 rounded-full"></div>
+                                    </div>
+                                    <h3 class="font-display text-xl font-semibold text-gray-900 mb-2">Senior UX Designer</h3>
+                                    <p class="text-purple-600 font-medium mb-3">TechFlow Solutions</p>
+                                    <p class="text-gray-600 text-sm">Leading design for B2B SaaS products, managing a team of 3 designers, and establishing design systems across multiple product lines.</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block w-4 h-4 bg-white border-4 border-purple-600 rounded-full relative z-10"></div>
+                            <div class="md:w-1/2 md:pl-8"></div>
+                        </div>
+
+                        <!-- Experience 2 -->
+                        <div class="flex flex-col md:flex-row items-center slide-in-right">
+                            <div class="md:w-1/2 md:pr-8"></div>
+                            <div class="hidden md:block w-4 h-4 bg-white border-4 border-purple-600 rounded-full relative z-10"></div>
+                            <div class="md:w-1/2 md:pl-8 mb-4 md:mb-0">
+                                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">2024 - 2025</span>
+                                        <div class="w-4 h-4 bg-blue-600 rounded-full"></div>
+                                    </div>
+                                    <h3 class="font-display text-xl font-semibold text-gray-900 mb-2">Product Designer</h3>
+                                    <p class="text-blue-600 font-medium mb-3">Digital Innovations Inc.</p>
+                                    <p class="text-gray-600 text-sm">Designed mobile and web applications for fintech clients, conducted user research, and collaborated with development teams to deliver pixel-perfect implementations.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience 3 -->
+                        <div class="flex flex-col md:flex-row items-center slide-in-left">
+                            <div class="md:w-1/2 md:pr-8 mb-4 md:mb-0">
+                                <div class="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">2024 - 2025</span>
+                                        <div class="w-4 h-4 bg-green-600 rounded-full"></div>
+                                    </div>
+                                    <h3 class="font-display text-xl font-semibold text-gray-900 mb-2">UI/UX Designer</h3>
+                                    <p class="text-green-600 font-medium mb-3">Creative Studio Pro</p>
+                                    <p class="text-gray-600 text-sm">Created brand identities and digital experiences for startups and small businesses, focusing on user-centered design principles and conversion optimization.</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block w-4 h-4 bg-white border-4 border-green-600 rounded-full relative z-10"></div>
+                            <div class="md:w-1/2 md:pl-8"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white">
+            <div class="max-w-6xl mx-auto px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-5xl font-bold mb-4 slide-in-up">Let's Create Together</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-400 to-blue-400 mx-auto slide-in-up"></div>
+                    <p class="text-purple-200 mt-6 text-lg slide-in-up">Ready to bring your ideas to life? Let's start a conversation.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div class="slide-in-left">
+                        <h3 class="font-display text-3xl font-semibold mb-8">Get In Touch</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-purple-200">Email</p>
+                                    <p class="text-white font-medium">kanungachiristian27@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-purple-200">Location</p>
+                                    <p class="text-white font-medium">posta,Dar es salaam</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-purple-200">Availability</p>
+                                    <p class="text-white font-medium">Open for new projects</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12">
+                            <h4 class="font-semibold text-lg mb-4">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <button class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors">
+                                    <span class="text-xl">💼</span>
+                                </button>
+                                <button class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors">
+                                    <span class="text-xl">🎨</span>
+                                </button>
+                                <button class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors">
+                                    <span class="text-xl">📸</span>
+                                </button>
+                                <button class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors">
+                                    <span class="text-xl">🐦</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-in-right">
+                        <form id="contact-form" class="glass-effect rounded-2xl p-8">
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-purple-200 mb-2 font-medium">First Name</label>
+                                    <input type="text" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-400 focus:outline-none text-white placeholder-purple-200" placeholder="">
+                                </div>
+                                <div>
+                                    <label class="block text-purple-200 mb-2 font-medium">Last Name</label>
+                                    <input type="text" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-400 focus:outline-none text-white placeholder-purple-200" placeholder="">
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-purple-200 mb-2 font-medium">Email</label>
+                                <input type="email" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-400 focus:outline-none text-white placeholder-purple-200" placeholder="@email.com">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-purple-200 mb-2 font-medium">Project Type</label>
+                                <select class="w-full px-4 py-3 bg-blue/10 border border-blue/20 rounded-lg focus:border-purple-400 focus:outline-none text-black">
+                                    <option value="">Select a project type</option>
+                                    <option value="web-design">Web Design</option>
+                                    <option value="mobile-app">Mobile App</option>
+                                    <option value="branding">Branding</option>
+                                    <option value="consultation">Consultation</option>
+                                </select>
+                            </div>
+                            <div class="mb-8">
+                                <label class="block text-purple-200 mb-2 font-medium">Message</label>
+                                <textarea rows="5" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-purple-400 focus:outline-none text-white placeholder-purple-200" placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Navigation active state
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                const targetId = href.substring(1);
+                scrollToSection(targetId);
+                
+                // Update active state
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('bg-purple-600', 'text-white'));
+                this.classList.add('bg-purple-600', 'text-white');
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.slide-in-left, .slide-in-right, .slide-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact form handling
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = this.querySelector('input[placeholder="John"]').value;
+            const lastName = this.querySelector('input[placeholder="Doe"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const projectType = this.querySelector('select').value;
+            const message = this.querySelector('textarea').value;
+            
+            if (firstName && lastName && email && message) {
+                alert(`Thank you ${firstName}! Your message has been received. This is a demo form - in a real website, I would get back to you within 24 hours.`);
+                this.reset();
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        // Initialize animations on load
+        window.addEventListener('load', function() {
+            // Set initial active nav state
+            document.querySelector('.nav-link[href="#home"]').classList.add('bg-purple-600', 'text-white');
+            
+            // Trigger hero animations
+            setTimeout(() => {
+                document.querySelectorAll('#home .slide-in-left, #home .slide-in-right').forEach(el => {
+                    el.classList.add('animate-in');
+                });
+            }, 300);
+        });
+
+        // Update nav active state on scroll
+        window.addEventListener('scroll', function() {
+            const sections = ['home', 'about', 'work', 'experience', 'contact'];
+            let current = '';
+            
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    current = section;
+                }
+            });
+            
+            if (current) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('bg-purple-600', 'text-white');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('bg-purple-600', 'text-white');
+                    }
+                });
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9688f08e7067de9f',t:'MTc1NDA4OTEwMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
